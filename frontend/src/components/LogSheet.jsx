@@ -6,7 +6,7 @@ const ROW_LABELS = {
   on_duty_not_driving: 'On Duty (Not Driving)',
 }
 
-const CHART_LEFT = 60
+const CHART_LEFT = 130
 const CHART_WIDTH = 920
 const HOUR_WIDTH = CHART_WIDTH / 24
 const ROW_HEIGHT = 40

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FaTruck } from 'react-icons/fa'
 import TripForm from './components/TripForm'
 import RouteMap from './components/RouteMap'
 import LogSheet from './components/LogSheet'
@@ -27,7 +28,7 @@ export default function App() {
   return (
     <div className="app">
       <header>
-        <h1>🚚 ELD Trip Planner</h1>
+        <h1><FaTruck style={{ color: '#f97316' }} /> ELD Trip Planner</h1>
         <p>Enter a trip and get a route + auto-generated driver daily logs.</p>
       </header>
 
