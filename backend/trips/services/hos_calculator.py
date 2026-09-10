@@ -198,6 +198,29 @@ class HOSCalculator:
         )
 
 
+def pad_to_full_day(segments: List[Segment]):
+    """
+    Real ELD/paper logs must always total exactly 24 hours per day, even if
+    the driver finishes their on-duty work early. This appends an Off Duty
+    segment from the end of the last activity to the next 24-hour boundary,
+    representing the rest of the driver's day.
+    """
+    if not segments:
+        return segments
+    last_end = segments[-1].end_hour
+    import math
+    day_boundary = math.ceil(last_end / 24) * 24
+    if day_boundary == last_end:
+        # trip ended exactly on a day boundary - still needs a full next
+        # day marked off duty only if there genuinely is a following day;
+        # nothing to pad here.
+        return segments
+    padded = list(segments) + [
+        Segment("off_duty", last_end, day_boundary, "Off duty (end of day)")
+    ]
+    return padded
+
+
 def split_segments_into_days(segments: List[Segment]):
     """
     Splits a flat list of segments (which may span multiple 24-hour periods)
