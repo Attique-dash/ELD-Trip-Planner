@@ -7,6 +7,7 @@ from .services.geocode import geocode, GeocodeError
 from .services.routing import get_route, RoutingError
 from .services.hos_calculator import (
     HOSCalculator,
+    pad_to_full_day,
     split_segments_into_days,
     compute_totals_by_status,
 )
@@ -48,7 +49,7 @@ def plan_trip(request):
         leg2_miles=leg2["distance_miles"], leg2_hours=leg2["duration_hours"],
     )
 
-    day_lists = split_segments_into_days(plan.segments)
+    day_lists = split_segments_into_days(pad_to_full_day(plan.segments))
     log_sheets = []
     for i, day_segments in enumerate(day_lists):
         totals = compute_totals_by_status(day_segments)
